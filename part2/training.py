@@ -1,7 +1,7 @@
 import numpy
 import sklearn
-from part2.featureengineer import get_feature1_train_data, get_feature1_vector, get_feature2_train_data
-from part2.processing import X_dev, Y_dev, X_test, Y_test
+from featureengineer import get_feature1_train_data, get_feature1_vector, get_feature2_train_data
+from processing import X_dev, Y_dev, X_test, Y_test
 
 accuracy, precision, recall, F_score = 0, 0, 0, 0
 
@@ -22,8 +22,8 @@ def validation(model, vocabulary, X_dev, Y_dev):
         X_true.append(get_feature1_vector(vocabulary, X_dev.loc[i, "content"]))
         Y_true.append(Y_dev.loc[i])
 
-    print(vocabulary)
-    print(X_true)
+    # print(vocabulary)
+    # print(X_true)
     predictions = model.predict(X_true)
     Y_true = numpy.asarray(Y_true)
 
@@ -41,7 +41,7 @@ def adjust_feature1_n():
     n = 50
     vocabulary_feature1 = []
     accuracy = 0
-    while accuracy < 0.2:
+    while accuracy < 0.8:
         X_train_feature1, Y_train_feature1, vocabulary_feature1 = get_feature1_train_data(n)
         svm_model_1 = train_svm_classifier(X_train_feature1, Y_train_feature1)
         accuracy, precision, recall, F_score = validation(svm_model_1, vocabulary_feature1, X_dev, Y_dev)
@@ -71,7 +71,7 @@ def adjust_feature2_n():
     n = 2
     vocabulary_feature2 = []
     accuracy = 0
-    while accuracy < 0.65:
+    while accuracy < 0.8:
         X_train_feature2, Y_train_feature2, vocabulary_feature2 = get_feature2_train_data(n)
         svm_model_2 = train_svm_classifier(X_train_feature2, Y_train_feature2)
         accuracy, precision, recall, F_score = validation(svm_model_2, vocabulary_feature2, X_dev, Y_dev)
@@ -94,4 +94,4 @@ def test_feature2_performance():
     print("macro-averaged F_score: " + str(F_score))
 
 
-test_feature2_performance()
+# test_feature2_performance()

@@ -1,8 +1,7 @@
 import nltk
 import operator
 import numpy
-from part2.processing import category_dic
-from part2.processing import X_train, Y_train
+from processing import X_train, Y_train
 
 
 stopwords = set(nltk.corpus.stopwords.words("english"))
@@ -32,13 +31,13 @@ def get_frequent_words(article_list, n):
                     frequency_dic[word] += 1
                 else:
                     frequency_dic[word] = 1
-        sorted_list = sorted(frequency_dic.items(), key=operator.itemgetter(1), reverse=True)
-        print(sorted_list)
-        if len(sorted_list) <= n:
-            print("no {} words in list, the number of words is: {}".format(n, len(sorted_list)))
-            return sorted_list
-        else:
-            return sorted_list[:n]
+    sorted_list = sorted(frequency_dic.items(), key=operator.itemgetter(1), reverse=True)
+    # print(sorted_list)
+    if len(sorted_list) <= n:
+        print("no {} words in list, the number of words is: {}".format(n, len(sorted_list)))
+        return sorted_list
+    else:
+        return sorted_list[:n]
 
 
 # function to get vector according to vocabulary from articles
@@ -75,7 +74,7 @@ def get_feature1_train_data(n):
 
 
 def get_feature2_vector(vocabulary, article):
-    vector = numpy.asarray(len(vocabulary))
+    vector = numpy.zeros(len(vocabulary))
     words = []
     # get token from the first line of each article as title
     for token in nltk.tokenize.word_tokenize(nltk.tokenize.sent_tokenize(article)[0]):
