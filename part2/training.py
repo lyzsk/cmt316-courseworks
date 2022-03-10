@@ -65,7 +65,7 @@ def test_feature1_performance():
     print("macro-averaged F_score: " + str(F_score))
 
 
-# test_feature1_performance()
+test_feature1_performance()
 
 def adjust_feature2_n():
     n = 2
@@ -94,7 +94,7 @@ def test_feature2_performance():
     print("macro-averaged F_score: " + str(F_score))
 
 
-# test_feature2_performance()
+test_feature2_performance()
 
 # training and testing feature3
 def test_feature3_performance():
