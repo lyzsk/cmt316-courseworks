@@ -17,7 +17,7 @@
     - Feature 2:
         - word frequency in all titles
     - Feature 3:
-        - ...
+        - TF-IDF
 
 - training.py
     - validate the n value by using dev dataset.
