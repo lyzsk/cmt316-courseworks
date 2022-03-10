@@ -1,7 +1,7 @@
 import numpy
 import sklearn
-from featureengineer import get_feature1_train_data, get_feature1_vector, get_feature2_train_data
-from processing import X_dev, Y_dev, X_test, Y_test
+from featureengineer import get_feature1_train_data, get_feature1_vector, get_feature2_train_data, tfidf_X_train, tfidf_X_test
+from processing import X_dev, Y_dev, X_test, Y_test, Y_train
 
 accuracy, precision, recall, F_score = 0, 0, 0, 0
 
@@ -95,3 +95,25 @@ def test_feature2_performance():
 
 
 # test_feature2_performance()
+
+# training and testing feature3
+def test_feature3_performance():
+    # train the classifier
+    svm_clf_idf = sklearn.svm.SVC(kernel="linear", gamma="auto")
+    svm_clf_idf.fit(tfidf_X_train, Y_train.to_numpy())
+    # test the data
+    predictions_idf = svm_clf_idf.predict(tfidf_X_test)
+    tfidf_Y_test = Y_test.to_numpy()
+
+    accuracy = sklearn.metrics.accuracy_score(tfidf_Y_test, predictions_idf)
+    precision = sklearn.metrics.precision_score(tfidf_Y_test, predictions_idf, average="macro")
+    recall = sklearn.metrics.recall_score(tfidf_Y_test, predictions_idf, average="macro")
+    F_score = sklearn.metrics.f1_score(tfidf_Y_test, predictions_idf, average="macro")
+    print("Accuracy: " + str(accuracy))
+    print("macro-averaged precision: " + str(precision))
+    print("macro-averaged recall: " + str(recall))
+    print("macro-averaged F_score: " + str(F_score))
+
+
+test_feature3_performance()
+

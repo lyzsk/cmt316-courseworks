@@ -1,7 +1,8 @@
 import nltk
 import operator
 import numpy
-from processing import X_train, Y_train
+from processing import X_train, Y_train, X_test
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
 
 stopwords = set(nltk.corpus.stopwords.words("english"))
@@ -101,3 +102,15 @@ def get_feature2_train_data(n):
         Y_vector.append(Y_train.loc[i])
     return X_vector, Y_vector, title_vocabulary
 
+
+# feature3: TF-IDF
+tfidf_vector = TfidfVectorizer()
+# learn vocabulary and idf from training set
+tfidf_vector.fit(X_train["content"])
+
+# transform train and test input documents to document-term matrix
+# Uses the vocabulary and document frequencies (df) learned by fit
+tfidf_X_train = tfidf_vector.transform(X_train["content"])
+tfidf_X_test = tfidf_vector.transform(X_test["content"])
+# print(tfidf_X_train)
+# print(tfidf_X_test)
